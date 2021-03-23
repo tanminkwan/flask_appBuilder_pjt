@@ -38,7 +38,7 @@ from . import appbuilder, db
 class ContactModelView(ModelView):
     datamodel = SQLAInterface(Contact)
 
-    label_columns = {'contact_group':'Contacts Group'}
+    label_columns = {'contact_group':'Contacts Group','address':'주소'}
     list_columns = ['name','personal_cellphone','gender', 'birthday','contact_group']
 
     show_fieldsets = [
@@ -68,6 +68,9 @@ def page_not_found(e):
         404,
     )
 
+class GroupModelApi(ModelRestApi):
+    resource_name = 'group'
+    datamodel = SQLAInterface(ContactGroup)
 
 db.create_all()
 appbuilder.add_view(
@@ -83,3 +86,4 @@ appbuilder.add_view(
     icon = "fa-envelope",
     category = "Contacts"
 )
+appbuilder.add_api(GroupModelApi)
